@@ -59,7 +59,20 @@ class MilkObject(MujocoXMLObject):
             duplicate_collision_geoms=True,
         )
 
+class CupObject(MujocoXMLObject):
+    """
+    Cup object (used in PickPlace)
+    """
 
+    def __init__(self, name):
+        super().__init__(
+            xml_path_completion("objects/cup.xml"),
+            name=name,
+            joints=[dict(type="free", damping="0.0005")],
+            obj_type="all",
+            duplicate_collision_geoms=True,
+        )
+        
 class BreadObject(MujocoXMLObject):
     """
     Bread loaf object (used in PickPlace)

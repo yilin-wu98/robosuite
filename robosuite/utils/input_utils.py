@@ -198,6 +198,12 @@ def input2action(device, robot, active_arm="right", env_configuration=None):
     controller = robot.controller if not isinstance(robot, Bimanual) else robot.controller[active_arm]
     gripper_dof = robot.gripper.dof if not isinstance(robot, Bimanual) else robot.gripper[active_arm].dof
 
+    ## read the robot gripper state
+    # get the gripper state
+    robot_gripper_state = robot.gripper.get_state()
+    ## toggle the gripper state
+    if grasp:
+        grasp = -1 if robot_gripper_state["width"] > 0.0 else 1
     # First process the raw drotation
     drotation = raw_drotation[[1, 0, 2]]
     if controller.name == "IK_POSE":

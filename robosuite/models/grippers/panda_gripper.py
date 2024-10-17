@@ -16,7 +16,7 @@ class PandaGripperBase(GripperModel):
     """
 
     def __init__(self, idn=0):
-        super().__init__(xml_path_completion("grippers/panda_gripper.xml"), idn=idn)
+        super().__init__(xml_path_completion("grippers/panda_gripper_with_umi.xml"), idn=idn)
 
     def format_action(self, action):
         return action
@@ -33,7 +33,31 @@ class PandaGripperBase(GripperModel):
             "left_fingerpad": ["finger1_pad_collision"],
             "right_fingerpad": ["finger2_pad_collision"],
         }
+    @property
+    def _important_sites(self):
+        """
+        Sites used to aid visualization by human. (usually "grip_site" and "grip_cylinder")
+        (and should be hidden from robots)
 
+        Returns:
+            dict:
+
+                :`'grip_site'`: Name of grip actuation intersection location site
+                :`'grip_cylinder'`: Name of grip actuation z-axis location site
+                :`'ee'`: Name of end effector site
+                :`'ee_x'`: Name of end effector site (x-axis)
+                :`'ee_y'`: Name of end effector site (y-axis)
+                :`'ee_z'`: Name of end effector site (z-axis)
+        """
+        return {
+            "grip_site": "grip_site",
+            "eef_site": "end_effector",
+            "grip_cylinder": "grip_site_cylinder",
+            "ee": "ee",
+            "ee_x": "ee_x",
+            "ee_y": "ee_y",
+            "ee_z": "ee_z",
+        }
 
 class PandaGripper(PandaGripperBase):
     """
